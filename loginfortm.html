@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transport Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .form-container, .table-container, .login-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+    }  
+    .login-container button {
+    background-color: #EDAD03;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+  }
+  .login-container button:hover {
+    background-color: #45a049;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    .delete-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Transport Management System</h1>
+
+  <div class="login-container" id="loginContainer">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div class="form-container hidden" id="appContent">
+    <h2>Add Transport</h2>
+    <form id="transportForm">
+      <input type="text" id="vehicleNumber" placeholder="Vehicle Number" required />
+      <input type="text" id="driverName" placeholder="Driver Name" required />
+      <input type="text" id="route" placeholder="Route" required />
+      <button type="submit">Add Transport</button>
+    </form>
+  </div>
+
+  <div class="table-container hidden" id="transportTableContainer">
+    <h2>Transport List</h2>
+    <table id="transportTable">
+      <thead>
+        <tr>
+          <th>Vehicle Number</th>
+          <th>Driver Name</th>
+          <th>Route</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  if (username === "admin" && password === "admin123") {
+    window.location.href = "transportmanagement.html";
+  } else {
+    alert("Invalid username or password!");
+  }
+}
+
+    const form = document.getElementById("transportForm");
+    const tableBody = document.querySelector("#transportTable tbody");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const vehicle = document.getElementById("vehicleNumber").value;
+      const driver = document.getElementById("driverName").value;
+      const route = document.getElementById("route").value;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${vehicle}</td>
+        <td>${driver}</td>
+        <td>${route}</td>
+        <td><button class="delete-btn">Delete</button></td>
+      `;
+
+      tableBody.appendChild(row);
+
+      form.reset();
+    });
+
+    tableBody.addEventListener("click", function(e) {
+      if (e.target.classList.contains("delete-btn")) {
+        e.target.closest("tr").remove();
+      }
+    });
+  </script>
+</body>
+</html>
