@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transport Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .form-container, .table-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    button[type="submit"] {
+      background-color: #EDAD03;
+      color: white;
+      border: none;
+      cursor: pointer;  
+    }
+    .view-btn {
+      background-color: #EDAD03;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Transport Management System</h1>
+
+  <div class="form-container">
+    <h2>Add Transport</h2>
+    <form id="transportForm">
+      <input type="text" id="vehicleNumber" placeholder="Vehicle Number" required />
+      <input type="text" id="driverName" placeholder="Driver Name" required />
+      <input type="text" id="route" placeholder="Route" required />
+      <button type="submit">Add Transport</button>
+    </form>
+    <a href="transportlistfortm.html"><button class="view-btn">View Transport List</button></a>
+  </div>
+
+  <script>
+        const form = document.getElementById("transportForm");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const vehicle = document.getElementById("vehicleNumber").value;
+  const driver = document.getElementById("driverName").value;
+  const route = document.getElementById("route").value;
+
+  const transports = JSON.parse(localStorage.getItem("transports")) || [];
+  transports.push({ vehicle, driver, route });
+  localStorage.setItem("transports", JSON.stringify(transports));
+
+  form.reset();
+  alert("Transport added successfully!");
+    });
+  </script>
+</body>
+</html>
